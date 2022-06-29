@@ -1,4 +1,5 @@
 import {
+  Center,
   Grid,
   GridItem,
   Heading,
@@ -50,16 +51,18 @@ const Quote = ({ tweetData, authorData }) => {
       <GridItem colSpan={1} rowStart={3} h="10" bg="tomato" />
       {/* twitter quote canvas container */}
       <GridItem colStart={2} rowStart={2} rowEnd={4} h="300" bg="tomato">
-        <TwitterCard
-          quote={tweetData.text}
-          username={authorData.username}
-          fullname={authorData.name}
-          lineSpacing={lineSpacing}
-          startPos={startPos}
-          fontSize={fontSize}
-          hAlign={hAlign}
-          textAlign={textAlign}
-        />
+        <Center>
+          <TwitterCard
+            quote={tweetData.text}
+            username={authorData.username}
+            fullname={authorData.name}
+            lineSpacing={lineSpacing}
+            startPos={startPos}
+            fontSize={fontSize}
+            hAlign={hAlign}
+            textAlign={textAlign}
+          />
+        </Center>
       </GridItem>
       {/* line spacing slider */}
       <GridItem padding={5} colStart={2} rowStart={5} h="100" bg="tomato">
