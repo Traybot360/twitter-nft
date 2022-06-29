@@ -17,6 +17,7 @@ const index = () => {
   const router = useRouter();
 
   const handleClick = () => {
+    console.log({ quoteId });
     if (quoteId) {
       router.push(`/quote?id=${quoteId}`);
     }
@@ -30,9 +31,11 @@ const index = () => {
       h="100vh"
     >
       <GridItem colStart={2} rowStart={3} h="10" bg="white">
-        <Heading as="h2" size="xl" textAlign="center">
+        <Heading as="h2" size="2xl" textAlign="center">
           Own Your Thoughts
         </Heading>
+      </GridItem>
+      <GridItem colStart={2} rowStart={4} h="10" bg="white">
         <InputGroup size="md">
           <Input
             pr="4.5rem"
