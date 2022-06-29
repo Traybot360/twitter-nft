@@ -4,8 +4,6 @@ import {
   GridItem,
   Heading,
   HStack,
-  Radio,
-  RadioGroup,
   useRadioGroup,
 } from "@chakra-ui/react";
 import { useState } from "react";
@@ -48,9 +46,8 @@ const Quote = ({ tweetData, authorData }) => {
       h="100vh"
     >
       {console.log({ tweetData, authorData })}
-      <GridItem colSpan={1} rowStart={3} h="10" bg="tomato" />
       {/* twitter quote canvas container */}
-      <GridItem colStart={2} rowStart={2} rowEnd={4} h="300" bg="tomato">
+      <GridItem colStart={2} rowStart={2} rowEnd={4} h="300">
         <Center>
           <TwitterCard
             quote={tweetData.text}
@@ -64,84 +61,92 @@ const Quote = ({ tweetData, authorData }) => {
           />
         </Center>
       </GridItem>
-      {/* line spacing slider */}
-      <GridItem padding={5} colStart={2} rowStart={5} h="100" bg="tomato">
-        <Heading as="h3" size="lg">
-          Line spacing
-        </Heading>
-        <CanvasSlider
-          startValue={0}
-          middleValue={150}
-          endValue={300}
-          units="px"
-          sliderValue={lineSpacing}
-          setSliderValue={setLineSpacing}
-          defaultValue={defaultValues.lineSpacing}
-        />
+      {/* sub container that dynamically places the sliders/radios */}
+      <GridItem m={2} colStart={1} colSpan={3} rowStart={5}>
+        <Grid
+          justifyContent="center"
+          alignContent="center"
+          gap={4}
+          templateColumns="repeat( auto-fit, minmax(250px, 1fr) )"
+        >
+          {/* line spacing slider */}
+          <GridItem padding={5} h="100">
+            <Heading as="h3" size="lg">
+              Line spacing
+            </Heading>
+            <CanvasSlider
+              startValue={0}
+              middleValue={150}
+              endValue={300}
+              units="px"
+              sliderValue={lineSpacing}
+              setSliderValue={setLineSpacing}
+              defaultValue={defaultValues.lineSpacing}
+            />
+          </GridItem>
+          {/* start position slider */}
+          <GridItem padding={5} h="100">
+            <Heading as="h3" size="lg">
+              Start Position
+            </Heading>
+            <CanvasSlider
+              startValue={0}
+              middleValue={150}
+              endValue={300}
+              units="px"
+              sliderValue={startPos}
+              setSliderValue={setStartPos}
+              defaultValue={defaultValues.startPos}
+            />
+          </GridItem>
+          {/* font size slider */}
+          <GridItem padding={5} h="100">
+            <Heading as="h3" size="lg">
+              Font Size
+            </Heading>
+            <CanvasSlider
+              startValue={0}
+              middleValue={50}
+              endValue={100}
+              units="px"
+              sliderValue={fontSize}
+              setSliderValue={setFontSize}
+              defaultValue={defaultValues.fontSize}
+            />
+          </GridItem>
+          {/* horizontal alignment */}
+          <GridItem padding={5} h="100">
+            <Heading as="h3" size="lg">
+              Horizontal start
+            </Heading>
+            <CanvasSlider
+              startValue={0}
+              middleValue={150}
+              endValue={300}
+              units="px"
+              sliderValue={hAlign}
+              setSliderValue={setHAlign}
+              defaultValue={defaultValues.hAlign}
+            />
+          </GridItem>
+          {/* text align positions */}
+          <GridItem padding={5} h="100">
+            <Heading as="h3" size="lg" marginBottom={5}>
+              Text Align
+            </Heading>
+            <HStack {...group}>
+              {["start", "center", "end"].map((value) => {
+                const radio = getRadioProps({ value });
+                return (
+                  <RadioCard key={value} {...radio}>
+                    {value}
+                  </RadioCard>
+                );
+              })}
+            </HStack>
+          </GridItem>
+        </Grid>
       </GridItem>
-      {/* start position slider */}
-      <GridItem padding={5} colStart={2} rowStart={6} h="100" bg="tomato">
-        <Heading as="h3" size="lg">
-          Start Position
-        </Heading>
-        <CanvasSlider
-          startValue={0}
-          middleValue={150}
-          endValue={300}
-          units="px"
-          sliderValue={startPos}
-          setSliderValue={setStartPos}
-          defaultValue={defaultValues.startPos}
-        />
-      </GridItem>
-      {/* font size slider */}
-      <GridItem padding={5} colStart={2} rowStart={7} h="100" bg="tomato">
-        <Heading as="h3" size="lg">
-          Font Size
-        </Heading>
-        <CanvasSlider
-          startValue={0}
-          middleValue={50}
-          endValue={100}
-          units="px"
-          sliderValue={fontSize}
-          setSliderValue={setFontSize}
-          defaultValue={defaultValues.fontSize}
-        />
-      </GridItem>
-      {/* horizontal alignment */}
-      <GridItem padding={5} colStart={2} rowStart={8} h="100" bg="tomato">
-        <Heading as="h3" size="lg">
-          Horizontal start
-        </Heading>
-        <CanvasSlider
-          startValue={0}
-          middleValue={150}
-          endValue={300}
-          units="px"
-          sliderValue={hAlign}
-          setSliderValue={setHAlign}
-          defaultValue={defaultValues.hAlign}
-        />
-      </GridItem>
-      {/* text align positions */}
-      <GridItem padding={5} colStart={2} rowStart={9} h="100" bg="tomato">
-        <Heading as="h3" size="lg" marginBottom={5}>
-          Text Align
-        </Heading>
-        <HStack {...group}>
-          {["start", "center", "end"].map((value) => {
-            const radio = getRadioProps({ value });
-            return (
-              <RadioCard key={value} {...radio}>
-                {value}
-              </RadioCard>
-            );
-          })}
-        </HStack>
-      </GridItem>
-
-      <GridItem colStart={3} rowStart={3} h="10" bg="tomato" />
     </Grid>
   );
 };

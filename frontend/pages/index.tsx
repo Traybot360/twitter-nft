@@ -29,7 +29,6 @@ const index = () => {
       gap={4}
       h="100vh"
     >
-      <GridItem colSpan={1} rowStart={3} h="10" bg="tomato" />
       <GridItem colStart={2} rowStart={3} h="10" bg="white">
         <Heading as="h2" size="xl" textAlign="center">
           Own Your Thoughts
@@ -47,7 +46,6 @@ const index = () => {
           </InputRightElement>
         </InputGroup>
       </GridItem>
-      <GridItem colStart={3} rowStart={3} h="10" bg="tomato" />
     </Grid>
   );
 };
