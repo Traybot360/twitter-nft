@@ -15,7 +15,6 @@ type CanvasSliderTypes = {
   units?: string;
   sliderValue: number;
   setSliderValue: Function;
-  defaultValue: number;
 };
 // slider component for the canvas values
 const CanvasSlider = ({
@@ -25,19 +24,18 @@ const CanvasSlider = ({
   units,
   sliderValue,
   setSliderValue,
-  defaultValue,
 }: CanvasSliderTypes) => {
   const [showTooltip, setShowTooltip] = useState(false);
   return (
     <Slider
       id="slider"
-      defaultValue={defaultValue}
       min={startValue}
       max={endValue}
       colorScheme="teal"
       onChange={(v) => setSliderValue(v)}
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}
+      defaultValue={sliderValue}
     >
       <SliderMark value={startValue} mt="1" ml="-2.5" fontSize="sm">
         {startValue}
