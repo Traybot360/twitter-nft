@@ -1,8 +1,10 @@
-import { Center, Grid, GridItem } from "@chakra-ui/react";
+import { Button, Center, Grid, GridItem } from "@chakra-ui/react";
+import { useRef } from "react";
 
 import Options from "../components/QuotePage/Options";
 import useOptions from "../components/QuotePage/useOptions";
 import TwitterCard from "../components/TwitterCard";
+import mintNFT, { base64ToBlob } from "../utils/NFTStorage";
 
 type propTypes = {
   tweetData: {
@@ -27,9 +29,24 @@ const defaultValues = {
   textAlign: "center",
 };
 
+const ipfsUpload = async (base64: string) => {};
+
 // generates a quote
 const Quote = ({ tweetData, authorData }: propTypes) => {
   const [values, setValues] = useOptions(defaultValues);
+
+  const canvasRef = useRef(null);
+
+  const handleClick = async () => {
+    if (canvasRef?.current) {
+      const canvas = canvasRef.current;
+      const image = await canvas.toDataURL("image/png");
+      const blob = await base64ToBlob(image);
+      console.log({ blob });
+      const metadata = await mintNFT(blob);
+      console.log({ metadata });
+    }
+  };
 
   return (
     <Grid
@@ -50,8 +67,12 @@ const Quote = ({ tweetData, authorData }: propTypes) => {
             fontSize={values.fontSize}
             hAlign={values.hAlign}
             textAlign={values.textAlign}
+            canvasRef={canvasRef}
           />
         </Center>
+      </GridItem>
+      <GridItem colStart={2} rowStart={3}>
+        <Button onClick={handleClick}>Mint NFT</Button>
       </GridItem>
       {/* sub grid that dynamically places the sliders/radios */}
       <Options values={values} setValues={setValues} />

@@ -10,6 +10,7 @@ type TwitterCardTypes = {
   startPos: number;
   hAlign: number;
   textAlign: string;
+  canvasRef: any;
 };
 
 const TwitterCard = ({
@@ -21,9 +22,8 @@ const TwitterCard = ({
   startPos,
   hAlign,
   textAlign,
+  canvasRef,
 }: TwitterCardTypes) => {
-  const canvasRef = useRef(null);
-
   useEffect(() => {
     if (canvasRef && quote && (username || fullname)) {
       const canvas: any = canvasRef.current;
