@@ -1,17 +1,19 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract TweetNFT is ERC721Full {
-    constructor() ERC721Full("TwitterNFT", "ITEM") {
-        // set the base URI for the metadata
-        _setBaseURI("ipfs://");
-    }
+contract TweetNFT is ERC721URIStorage {
+    using Counters for Counters.Counter;
+    Counters.Counter private counter;
 
-    function mint(string memory tokenURI, string memory tweetId) public {
-        // store the TweetId as the id of the token being minted
-        _mint(msg.sender, tweetId);
-        tokenURI(tweetId, tokenURI);
+    constructor() ERC721("TweetNFT", "TWT") {}
+
+    function mint(string memory metadataURI) public {
+        counter.increment();
+        uint256 nftId = counter.current();
+        _mint(msg.sender, nftId);
+        _setTokenURI(nftId, metadataURI);
     }
 }

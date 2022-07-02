@@ -14,12 +14,12 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const contract = await ethers.getContractFactory("Greeter");
+  const contract = await ethers.getContractFactory("TweetNFT");
   const tweetNFT = await contract.deploy();
 
   await tweetNFT.deployed();
 
-  console.log("Greeter deployed to:", tweetNFT.address);
+  console.log("Contract deployed to:", tweetNFT.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
