@@ -12,6 +12,13 @@ const DisplayNFTs = () => {
   const [metadata, setMetadata] = useState([]);
 
   useEffect(() => {
+    if (!address) {
+      setMetaUrl([]);
+      setMetadata([]);
+    }
+  }, [address]);
+
+  useEffect(() => {
     if (contractPromise) {
       contractPromise.then((c) => setContract(c));
     }
