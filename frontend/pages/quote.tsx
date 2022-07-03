@@ -1,10 +1,13 @@
 import { Button, Center, Grid, GridItem } from "@chakra-ui/react";
-import { useRef } from "react";
+import { useAddress } from "@thirdweb-dev/react";
+import { useEffect, useRef, useState } from "react";
+import ConnectWallet from "../components/ConntectWallet";
 
 import Options from "../components/QuotePage/Options";
 import useOptions from "../components/QuotePage/useOptions";
 import TwitterCard from "../components/TwitterCard";
-import mintNFT, { base64ToBlob } from "../utils/NFTStorage";
+import useContract from "../hooks/useContract";
+import uploadNFT, { base64ToBlob } from "../utils/NFTStorage";
 
 type propTypes = {
   tweetData: {
@@ -29,22 +32,55 @@ const defaultValues = {
   textAlign: "center",
 };
 
-const ipfsUpload = async (base64: string) => {};
-
 // generates a quote
 const Quote = ({ tweetData, authorData }: propTypes) => {
   const [values, setValues] = useOptions(defaultValues);
+  // const contract = useContractAbi(process.env.GOERLI_ADDRESS);
+  const address = useAddress();
 
   const canvasRef = useRef(null);
+  const contractPromise = useContract();
+
+  const [contract, setContract] = useState(null);
+
+  useEffect(() => {
+    if (contractPromise) {
+      contractPromise.then((c) => setContract(c));
+    }
+  }, [contractPromise]);
 
   const handleClick = async () => {
     if (canvasRef?.current) {
       const canvas = canvasRef.current;
       const image = await canvas.toDataURL("image/png");
       const blob = await base64ToBlob(image);
-      console.log({ blob });
-      const metadata = await mintNFT(blob);
-      console.log({ metadata });
+      // uplaod the metadata to nft.storage
+      const metadata = await uploadNFT(
+        blob,
+        tweetData.id,
+        tweetData.created_at
+      );
+      if (metadata?.url) {
+        // remove the ipfs:// prefix
+        const url = metadata.url.substring(7, metadata.url.length);
+        if (address && contract) {
+          try {
+            const mintTx = await contract.methods
+              .mint(url)
+              .send({ from: address });
+            console.log({ mintTx });
+            if (mintTx.status === true) {
+              alert("success!");
+            }
+          } catch (err) {
+            // if it failed, then tell the user
+            alert("Something went wrong when processing the transaction :(");
+          }
+        }
+      } else {
+        // if not uploaded, then tell the user
+        alert("Something went wrong, please try again");
+      }
     }
   };
 
@@ -72,6 +108,7 @@ const Quote = ({ tweetData, authorData }: propTypes) => {
         </Center>
       </GridItem>
       <GridItem colStart={2} rowStart={3}>
+        <ConnectWallet />
         <Button onClick={handleClick}>Mint NFT</Button>
       </GridItem>
       {/* sub grid that dynamically places the sliders/radios */}

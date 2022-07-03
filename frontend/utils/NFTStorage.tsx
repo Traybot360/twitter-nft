@@ -8,15 +8,17 @@ export async function base64ToBlob(imgUrl: string) {
   return r.blob();
 }
 
-const mintNFT = async (blobImg: Blob) => {
+const uplaodNFT = async (blobImg: Blob, tweetId: string, tweetedAt: string) => {
   const client = new NFTStorage({ token: process.env.NFTStorage_KEY || "" });
   const metadata = await client.store({
-    name: "NFT tester!",
-    description: "Just a random test NFT",
+    name: "TwitterNFT",
+    description: "NFT that represents a tweet from Twitter",
+    tweetId,
+    tweetedAt,
     image: blobImg,
   });
   console.log({ metadata });
   return metadata;
 };
 
-export default mintNFT;
+export default uplaodNFT;

@@ -7,16 +7,22 @@ import {
   InputGroup,
   InputRightElement,
 } from "@chakra-ui/react";
+import { useAddress } from "@thirdweb-dev/react";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import ConnectWallet from "./ConntectWallet";
+import useContract from "../hooks/useContract";
+import DisplayNFTs from "./DisplayNFTs";
 
 const Landing = () => {
+  const address = useAddress();
+
   const [quoteId, setQuoteId] = useState("");
 
   const router = useRouter();
 
   const handleClick = () => {
-    console.log({ quoteId });
     if (quoteId) {
       router.push(`/quote?id=${quoteId}`);
     }
@@ -47,6 +53,13 @@ const Landing = () => {
             </Button>
           </InputRightElement>
         </InputGroup>
+      </GridItem>
+      <GridItem colStart={2} rowStart={6}>
+        <ConnectWallet />
+        {address
+          ? `welcome ${address}`
+          : "Please connect metamask to view owned tweets."}
+        <DisplayNFTs />
       </GridItem>
     </Grid>
   );
