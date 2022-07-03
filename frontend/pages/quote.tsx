@@ -1,7 +1,14 @@
-import { Button, Center, Grid, GridItem } from "@chakra-ui/react";
+import {
+  Button,
+  Center,
+  Grid,
+  GridItem,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { useAddress } from "@thirdweb-dev/react";
 import { useEffect, useRef, useState } from "react";
 import ConnectWallet from "../components/ConntectWallet";
+import LoadingModal from "../components/QuotePage/LoadingModal";
 
 import Options from "../components/QuotePage/Options";
 import useOptions from "../components/QuotePage/useOptions";
@@ -35,13 +42,15 @@ const defaultValues = {
 // generates a quote
 const Quote = ({ tweetData, authorData }: propTypes) => {
   const [values, setValues] = useOptions(defaultValues);
-  // const contract = useContractAbi(process.env.GOERLI_ADDRESS);
+  const [loading, setLoading] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const address = useAddress();
 
   const canvasRef = useRef(null);
   const contractPromise = useContract();
 
   const [contract, setContract] = useState(null);
+  const [message, setMessage] = useState(null);
 
   useEffect(() => {
     if (contractPromise) {
@@ -50,6 +59,9 @@ const Quote = ({ tweetData, authorData }: propTypes) => {
   }, [contractPromise]);
 
   const handleClick = async () => {
+    setLoading(true);
+    setMessage("Loading...");
+    onOpen();
     if (canvasRef?.current) {
       const canvas = canvasRef.current;
       const image = await canvas.toDataURL("image/png");
@@ -70,50 +82,65 @@ const Quote = ({ tweetData, authorData }: propTypes) => {
               .send({ from: address });
             console.log({ mintTx });
             if (mintTx.status === true) {
-              alert("success!");
+              setMessage("success!");
             }
           } catch (err) {
             // if it failed, then tell the user
-            alert("Something went wrong when processing the transaction :(");
+            setMessage(
+              "Something went wrong when processing the transaction :("
+            );
+            setLoading(false);
           }
         }
       } else {
         // if not uploaded, then tell the user
-        alert("Something went wrong, please try again");
+        setMessage("Something went wrong when uploading the image :(");
+        setLoading(false);
       }
     }
+    setLoading(false);
   };
 
   return (
-    <Grid
-      templateColumns="repeat(3, 1fr)"
-      templateRows="repeat(10,1fr)"
-      gap={4}
-      h="100vh"
-    >
-      {/* twitter quote canvas container */}
-      <GridItem colStart={2} rowStart={2} rowEnd={4} h="300">
-        <Center>
-          <TwitterCard
-            quote={tweetData.text}
-            username={authorData.username}
-            fullname={authorData.name}
-            lineSpacing={values.lineSpacing}
-            startPos={values.startPos}
-            fontSize={values.fontSize}
-            hAlign={values.hAlign}
-            textAlign={values.textAlign}
-            canvasRef={canvasRef}
-          />
-        </Center>
-      </GridItem>
-      <GridItem colStart={2} rowStart={3}>
-        <ConnectWallet />
-        <Button onClick={handleClick}>Mint NFT</Button>
-      </GridItem>
-      {/* sub grid that dynamically places the sliders/radios */}
-      <Options values={values} setValues={setValues} />
-    </Grid>
+    <>
+      <LoadingModal
+        isOpen={isOpen}
+        onOpen={onOpen}
+        onClose={onClose}
+        loading={loading}
+        message={message}
+        setMessage={setMessage}
+      />
+      <Grid
+        templateColumns="repeat(3, 1fr)"
+        templateRows="repeat(10,1fr)"
+        gap={4}
+        h="100vh"
+      >
+        {/* twitter quote canvas container */}
+        <GridItem colStart={2} rowStart={2} rowEnd={4} h="300">
+          <Center>
+            <TwitterCard
+              quote={tweetData.text}
+              username={authorData.username}
+              fullname={authorData.name}
+              lineSpacing={values.lineSpacing}
+              startPos={values.startPos}
+              fontSize={values.fontSize}
+              hAlign={values.hAlign}
+              textAlign={values.textAlign}
+              canvasRef={canvasRef}
+            />
+          </Center>
+        </GridItem>
+        <GridItem colStart={2} rowStart={3}>
+          <ConnectWallet />
+          <Button onClick={handleClick}>Mint NFT</Button>
+        </GridItem>
+        {/* sub grid that dynamically places the sliders/radios */}
+        <Options values={values} setValues={setValues} />
+      </Grid>
+    </>
   );
 };
 

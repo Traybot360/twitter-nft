@@ -9,10 +9,9 @@ import {
 } from "@chakra-ui/react";
 import { useAddress } from "@thirdweb-dev/react";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import ConnectWallet from "./ConntectWallet";
-import useContract from "../hooks/useContract";
 import DisplayNFTs from "./DisplayNFTs";
 
 const Landing = () => {
