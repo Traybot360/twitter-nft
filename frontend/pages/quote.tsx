@@ -12,7 +12,7 @@ import LoadingModal from "../components/QuotePage/LoadingModal";
 
 import Options from "../components/QuotePage/Options";
 import useOptions from "../components/QuotePage/useOptions";
-import TwitterCard from "../components/TwitterCard";
+import TwitterCard from "../components/QuotePage/TwitterCard";
 import useContract from "../hooks/useContract";
 import uploadNFT, { base64ToBlob } from "../utils/NFTStorage";
 
@@ -105,7 +105,6 @@ const Quote = ({ tweetData, authorData }: propTypes) => {
     <>
       <LoadingModal
         isOpen={isOpen}
-        onOpen={onOpen}
         onClose={onClose}
         loading={loading}
         message={message}
@@ -116,7 +115,11 @@ const Quote = ({ tweetData, authorData }: propTypes) => {
         templateRows="repeat(10,1fr)"
         gap={4}
         h="100vh"
+        p={4}
       >
+        <GridItem alignSelf="end" justifySelf="end" colStart={3} rowStart={1}>
+          <ConnectWallet />
+        </GridItem>
         {/* twitter quote canvas container */}
         <GridItem colStart={2} rowStart={2} rowEnd={4} h="300">
           <Center>
@@ -133,9 +136,10 @@ const Quote = ({ tweetData, authorData }: propTypes) => {
             />
           </Center>
         </GridItem>
-        <GridItem colStart={2} rowStart={3}>
-          <ConnectWallet />
-          <Button onClick={handleClick}>Mint NFT</Button>
+        <GridItem colStart={2} rowStart={5} placeSelf="center">
+          <Button disabled={loading || !address} onClick={handleClick}>
+            Mint NFT
+          </Button>
         </GridItem>
         {/* sub grid that dynamically places the sliders/radios */}
         <Options values={values} setValues={setValues} />

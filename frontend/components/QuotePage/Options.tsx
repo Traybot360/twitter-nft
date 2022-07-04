@@ -6,8 +6,8 @@ import {
   useRadioGroup,
 } from "@chakra-ui/react";
 
-import CanvasSlider from "../CanvasSlider";
-import RadioCard from "../RadioCard";
+import CanvasSlider from "./CanvasSlider";
+import RadioCard from "./RadioCard";
 
 // settings/options for the canvas containing the quote
 const Options = ({
@@ -26,12 +26,12 @@ const Options = ({
   const group = getRootProps();
 
   return (
-    <GridItem m={2} colStart={1} colSpan={3} rowStart={5}>
+    <GridItem m={2} colStart={1} colSpan={3} rowStart={6}>
       <Grid
         justifyContent="center"
         alignContent="center"
         gap={4}
-        templateColumns="repeat( auto-fit, minmax(250px, 1fr) )"
+        templateColumns="repeat( auto-fit, 300px )"
       >
         {/* line spacing slider */}
         <GridItem padding={5} h="100">

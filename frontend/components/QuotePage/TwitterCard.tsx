@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import { getLines } from "./helpers";
+import React, { useEffect } from "react";
+import { getLines } from "../helpers";
 
 type TwitterCardTypes = {
   quote: string;

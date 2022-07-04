@@ -24,7 +24,7 @@ const LoadingModal = ({ isOpen, onClose, loading, message, setMessage }) => {
         <ModalBody pb={6}>{message}</ModalBody>
 
         <ModalFooter>
-          {!loading && <Button onClick={customClose}>Cancel</Button>}
+          {!loading && <Button onClick={customClose}>Close</Button>}
         </ModalFooter>
       </ModalContent>
     </Modal>
