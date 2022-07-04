@@ -1,3 +1,5 @@
+import { Container, Text } from "@chakra-ui/react";
+
 type props = {
   //   description?: string;
   image: string;
@@ -16,10 +18,17 @@ const convertDate = (date: string) => {
 
 const Nft = ({ image, name, tweetedAt }: props) => {
   return (
-    <div>
-      <img src={getImgUrl(image)} alt={name} />
-      <h1>Tweeted At {convertDate(tweetedAt)}</h1>
-    </div>
+    <Container
+      boxShadow="0px 0px 20px 0px rgba(0,0,0,0.51)"
+      // border="1px solid"
+      borderRadius={5}
+      p={0}
+    >
+      <img style={{ borderRadius: "5px" }} src={getImgUrl(image)} alt={name} />
+      <Text textAlign="center" p={4}>
+        Tweeted At <b>{convertDate(tweetedAt)}</b>
+      </Text>
+    </Container>
   );
 };
 

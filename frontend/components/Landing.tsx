@@ -33,13 +33,17 @@ const Landing = () => {
       templateRows="repeat(10,1fr)"
       gap={4}
       h="100vh"
+      p={4}
     >
+      <GridItem alignSelf="end" justifySelf="end" colStart={3} rowStart={1}>
+        <ConnectWallet />
+      </GridItem>
       <GridItem colStart={2} rowStart={3} h="10" bg="white">
         <Heading as="h2" size="2xl" textAlign="center">
           Own Your Thoughts
         </Heading>
       </GridItem>
-      <GridItem colStart={2} rowStart={4} h="10" bg="white">
+      <GridItem colStart={2} rowStart={5} h="10" bg="white">
         <InputGroup size="md">
           <Input
             pr="4.5rem"
@@ -53,12 +57,12 @@ const Landing = () => {
           </InputRightElement>
         </InputGroup>
       </GridItem>
-      <GridItem colStart={2} rowStart={6}>
-        <ConnectWallet />
-        {address
-          ? `welcome ${address}`
-          : "Please connect metamask to view owned tweets."}
-        <DisplayNFTs />
+      <GridItem colStart={1} colSpan={3} rowStart={7}>
+        {address ? (
+          <DisplayNFTs />
+        ) : (
+          "Please connect metamask to view owned tweets."
+        )}
       </GridItem>
     </Grid>
   );

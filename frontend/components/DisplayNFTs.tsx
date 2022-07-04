@@ -1,3 +1,4 @@
+import { Grid, GridItem } from "@chakra-ui/react";
 import { useAddress } from "@thirdweb-dev/react";
 import { useEffect, useState } from "react";
 import useContract from "../hooks/useContract";
@@ -57,7 +58,21 @@ const DisplayNFTs = () => {
     console.log({ metaUrl });
   }, [metaUrl]);
 
-  return metadata.map((metadata, i) => <Nft key={i} {...metadata} />);
+  return (
+    <Grid
+      placeContent="center"
+      placeItems="center"
+      gap={4}
+      rowGap={50}
+      templateColumns="repeat( auto-fit, 450px )"
+    >
+      {metadata.map((metadata, i) => (
+        <GridItem key={i}>
+          <Nft {...metadata} />
+        </GridItem>
+      ))}
+    </Grid>
+  );
 };
 
 export default DisplayNFTs;
