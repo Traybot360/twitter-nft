@@ -1,13 +1,7 @@
 import { Button, Tooltip } from "@chakra-ui/react";
-import {
-  useMetamask,
-  useWalletConnect,
-  useCoinbaseWallet,
-  useNetwork,
-  useAddress,
-  useDisconnect,
-} from "@thirdweb-dev/react";
+import { useMetamask, useAddress, useDisconnect } from "@thirdweb-dev/react";
 
+// button for connecting and disconnecting from metamask
 const ConnectWallet = () => {
   const connectWithMetamask = useMetamask();
   const disconnectWallet = useDisconnect();

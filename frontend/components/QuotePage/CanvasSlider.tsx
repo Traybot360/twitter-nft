@@ -16,6 +16,7 @@ type CanvasSliderTypes = {
   sliderValue: number;
   setSliderValue: Function;
 };
+
 // slider component for the canvas values
 const CanvasSlider = ({
   startValue,

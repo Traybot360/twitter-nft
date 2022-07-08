@@ -14,7 +14,7 @@ import { useState } from "react";
 
 import ConnectWallet from "./ConntectWallet";
 import DisplayNFTs from "./DisplayNFTs";
-
+// landing page "/""
 const Landing = () => {
   const address = useAddress();
 
@@ -22,7 +22,7 @@ const Landing = () => {
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
-
+  // if quote id is set, redirect to nft generator page
   const handleClick = () => {
     if (quoteId) {
       router.push(`/quote?id=${quoteId}`);

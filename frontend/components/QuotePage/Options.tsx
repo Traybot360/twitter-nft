@@ -98,7 +98,7 @@ const Options = ({
             {["start", "center", "end"].map((value) => {
               const radio = getRadioProps({ value });
               return (
-                <RadioCard key={value} {...radio}>
+                <RadioCard key={value} radio={radio}>
                   {value}
                 </RadioCard>
               );

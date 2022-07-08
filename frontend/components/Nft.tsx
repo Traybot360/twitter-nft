@@ -1,26 +1,17 @@
 import { Container, Text } from "@chakra-ui/react";
+import { convertDate, getImgUrl } from "./helpers";
 
 type props = {
-  //   description?: string;
   image: string;
   name?: string;
-  //   tweetId?: string;
   tweetedAt: string;
 };
 
-const getImgUrl = (img: string) => {
-  return `https://ipfs.io/ipfs/${img.substring(7, img.length)}`;
-};
-const convertDate = (date: string) => {
-  const d = new Date(date);
-  return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
-};
-
+// an nft in the nft grid component in the home page
 const Nft = ({ image, name, tweetedAt }: props) => {
   return (
     <Container
       boxShadow="0px 0px 20px 0px rgba(0,0,0,0.51)"
-      // border="1px solid"
       borderRadius={5}
       p={0}
     >

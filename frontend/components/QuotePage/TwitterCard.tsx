@@ -31,14 +31,6 @@ const TwitterCard = ({
 
       const textToDraw = `"${quote}" - ${fullname ? fullname : "@" + username}`;
 
-      // var grad = ctx.createLinearGradient(281, 0, 319, 200);
-
-      // grad.addColorStop(0, "rgba(238, 130, 238, 1)");
-      // grad.addColorStop(1, "rgba(0, 0, 255, 1)");
-
-      // ctx.fillStyle = grad;
-      // ctx.fillRect(0, 0, 300, 300);
-
       ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
       ctx.fillRect(0, 0, 300, 300);
 

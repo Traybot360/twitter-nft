@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import useContract from "../hooks/useContract";
 import Nft from "./Nft";
 
-const DisplayNFTs = ({ setLoading }) => {
+// a grid displaying the owned NFT's of the current user
+const DisplayNFTs = ({ setLoading }: { setLoading: Function }) => {
   const address = useAddress();
   const contractPromise = useContract();
 
@@ -20,6 +21,10 @@ const DisplayNFTs = ({ setLoading }) => {
   }, [address]);
 
   useEffect(() => {
+    /*
+    since the hook returns a promise for the contract, 
+    wait for it to resolve to set the contract in state
+    */
     if (contractPromise) {
       contractPromise.then((c) => setContract(c));
     }
@@ -27,6 +32,7 @@ const DisplayNFTs = ({ setLoading }) => {
 
   useEffect(() => {
     (async () => {
+      // if the contract is set, get all owned tokens
       if (address && contract) {
         setLoading(true);
         let tokenAmount = await contract.methods.balanceOf(address).call();
@@ -47,6 +53,7 @@ const DisplayNFTs = ({ setLoading }) => {
   }, [address, contract]);
 
   useEffect(() => {
+    // for every metadata url, resolve get the metadata
     for (const i of metaUrl) {
       fetch(`https://ipfs.io/ipfs/${i}`)
         .then((res) => res.json())
@@ -54,6 +61,7 @@ const DisplayNFTs = ({ setLoading }) => {
     }
     setLoading(false);
   }, [metaUrl]);
+
   return (
     <Grid
       placeContent="center"

@@ -9,8 +9,22 @@ import {
   ModalOverlay,
 } from "@chakra-ui/react";
 
-// modal that appears when loading the NFT
-const LoadingModal = ({ isOpen, onClose, loading, message, setMessage }) => {
+type props = {
+  isOpen: boolean;
+  onClose: Function;
+  loading: boolean;
+  message: string;
+  setMessage: Function;
+};
+
+// modal that appears when loading the NFT transaction
+const LoadingModal = ({
+  isOpen,
+  onClose,
+  loading,
+  message,
+  setMessage,
+}: props) => {
   const customClose = () => {
     setMessage(null);
     onClose();

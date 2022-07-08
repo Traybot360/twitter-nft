@@ -4,7 +4,11 @@
  * @param maxWidth is the width of the canvas
  * @returns an array of strings that fit in the canvas width individually
  */
-export function getLines(ctx: any, text: string, maxWidth: number) {
+export const getLines = (
+  ctx: any,
+  text: string,
+  maxWidth: number
+): string[] => {
   var words = text.split(" ");
   var lines = [];
   var currentLine = words[0];
@@ -21,4 +25,22 @@ export function getLines(ctx: any, text: string, maxWidth: number) {
   }
   lines.push(currentLine);
   return lines;
-}
+};
+
+/**
+ * @param img is the ipfs url of an image (includes ipfs://)
+ * @returns the url of the image that can be used as the image src
+ */
+export const getImgUrl = (img: string): string => {
+  return `https://ipfs.io/ipfs/${img.substring(7, img.length)}`;
+};
+
+/**
+ *
+ * @param date is the date the tweet was tweeted
+ * @returns a string containing the date in the format "DD/MM/YYYY"
+ */
+export const convertDate = (date: string): string => {
+  const d = new Date(date);
+  return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
+};
