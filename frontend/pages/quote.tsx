@@ -15,6 +15,7 @@ import useOptions from "../components/QuotePage/useOptions";
 import TwitterCard from "../components/QuotePage/TwitterCard";
 import useContract from "../hooks/useContract";
 import uploadNFT, { base64ToBlob } from "../utils/NFTStorage";
+import { useRouter } from "next/router";
 
 type propTypes = {
   tweetData: {
@@ -51,6 +52,8 @@ const Quote = ({ tweetData, authorData }: propTypes) => {
 
   const [contract, setContract] = useState(null);
   const [message, setMessage] = useState(null);
+
+  const router = useRouter();
 
   useEffect(() => {
     if (contractPromise) {
@@ -137,7 +140,19 @@ const Quote = ({ tweetData, authorData }: propTypes) => {
           </Center>
         </GridItem>
         <GridItem colStart={2} rowStart={5} placeSelf="center">
-          <Button disabled={loading || !address} onClick={handleClick}>
+          <Button
+            disabled={loading || !address}
+            onClick={() => router.push("/")}
+            mr={2}
+          >
+            Go home
+          </Button>
+          <Button
+            colorScheme="purple"
+            disabled={loading || !address}
+            onClick={handleClick}
+            ml={2}
+          >
             Mint NFT
           </Button>
         </GridItem>

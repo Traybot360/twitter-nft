@@ -18,6 +18,7 @@ const Landing = () => {
   const address = useAddress();
 
   const [quoteId, setQuoteId] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
@@ -58,8 +59,9 @@ const Landing = () => {
         </InputGroup>
       </GridItem>
       <GridItem colStart={1} colSpan={3} rowStart={7}>
+        {loading && "loading..."}
         {address ? (
-          <DisplayNFTs />
+          <DisplayNFTs setLoading={setLoading} />
         ) : (
           "Please connect metamask to view owned tweets."
         )}
