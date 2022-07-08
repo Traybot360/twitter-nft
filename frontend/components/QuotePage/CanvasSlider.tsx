@@ -55,7 +55,6 @@ const CanvasSlider = ({
         color="white"
         placement="top"
         isOpen={showTooltip}
-        // TODO: round the value to the nearest whole number
         label={`${Math.round((sliderValue / endValue) * endValue)}${units}`}
       >
         <SliderThumb />
