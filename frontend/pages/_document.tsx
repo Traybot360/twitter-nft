@@ -21,7 +21,7 @@ const MyDocument = (props: DocumentProps) => {
           crossOrigin="true"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Oleo+Script+Swash+Caps&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter&family=Oleo+Script+Swash+Caps&family=Poppins&display=swap"
           rel="stylesheet"
         />
       </Head>

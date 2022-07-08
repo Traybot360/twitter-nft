@@ -54,33 +54,6 @@ const DisplayNFTs = ({ setLoading }) => {
     }
     setLoading(false);
   }, [metaUrl]);
-  // fetch all the tweets information from the twitter api
-  // TODO: fetch multiple times if the amount of tweets are > 100
-  // useEffect(() => {
-  //   if (metaUrl.length > 0 && metadata.length == metaUrl.length) {
-  //     let tweets = [];
-  //     // TODO: remove duplicates
-  //     for (let i = 0; i < metadata.length; i++) {
-  //       tweets.push(metadata[i].tweetId);
-  //     }
-  //     console.log({ tweets });
-  //     fetch(`/api/getTweets?tweets=1538865501241327616,1531492116001595393`)
-  //       .then((res) => res.json())
-  //       .then((res) => {
-  //         const data = res.data;
-  //         console.log({ dataLength: data.length });
-  //         data.forEach((elem) => {
-  //           console.log({ elem });
-  //           // FIX: this isnt working properly
-  // setTweetData({ ...tweetData, [elem.id]: elem });
-  //         });
-  //       })
-  //       .catch((err) => console.error(err));
-  //   }
-  // }, [metadata, metaUrl]);
-
-  // useEffect(() => console.log({ tweetData }), [tweetData]);
-
   return (
     <Grid
       placeContent="center"

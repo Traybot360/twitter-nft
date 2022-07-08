@@ -124,7 +124,7 @@ const Quote = ({ tweetData, authorData }: propTypes) => {
           <ConnectWallet />
         </GridItem>
         {/* twitter quote canvas container */}
-        <GridItem colStart={2} rowStart={2} rowEnd={4} h="300">
+        <GridItem colStart={1} colSpan={3} rowStart={2} rowEnd={4} h="300">
           <Center>
             <TwitterCard
               quote={tweetData.text}
@@ -139,7 +139,7 @@ const Quote = ({ tweetData, authorData }: propTypes) => {
             />
           </Center>
         </GridItem>
-        <GridItem colStart={2} rowStart={5} placeSelf="center">
+        <GridItem colStart={1} colSpan={3} rowStart={5} placeSelf="center">
           <Button
             disabled={loading || !address}
             onClick={() => router.push("/")}

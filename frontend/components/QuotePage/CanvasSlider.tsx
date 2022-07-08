@@ -31,7 +31,6 @@ const CanvasSlider = ({
       id="slider"
       min={startValue}
       max={endValue}
-      colorScheme="teal"
       onChange={(v) => setSliderValue(v)}
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}

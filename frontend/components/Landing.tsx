@@ -6,6 +6,7 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  Text,
 } from "@chakra-ui/react";
 import { useAddress } from "@thirdweb-dev/react";
 import { useRouter } from "next/router";
@@ -39,12 +40,28 @@ const Landing = () => {
       <GridItem alignSelf="end" justifySelf="end" colStart={3} rowStart={1}>
         <ConnectWallet />
       </GridItem>
-      <GridItem colStart={2} rowStart={3} h="10" bg="white">
+      <GridItem
+        placeSelf="center"
+        colStart={0}
+        colSpan={3}
+        rowStart={2}
+        rowEnd={3}
+        h="10"
+        bg="white"
+      >
         <Heading as="h2" size="2xl" textAlign="center">
           Own Your Thoughts
         </Heading>
       </GridItem>
-      <GridItem colStart={2} rowStart={5} h="10" bg="white">
+      <GridItem
+        placeSelf="center"
+        minWidth={300}
+        colStart={1}
+        colSpan={3}
+        rowStart={5}
+        h="10"
+        bg="white"
+      >
         <InputGroup size="md">
           <Input
             pr="4.5rem"
@@ -63,7 +80,9 @@ const Landing = () => {
         {address ? (
           <DisplayNFTs setLoading={setLoading} />
         ) : (
-          "Please connect metamask to view owned tweets."
+          <Text textAlign="center">
+            Please connect metamask to view owned tweets.
+          </Text>
         )}
       </GridItem>
     </Grid>
