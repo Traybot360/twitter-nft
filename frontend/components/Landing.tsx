@@ -74,9 +74,10 @@ const Landing = () => {
             </Button>
           </InputRightElement>
         </InputGroup>
+        <Text textAlign="center">Note: Only supported chain is ETH Goerli</Text>
       </GridItem>
       <GridItem colStart={1} colSpan={3} rowStart={7}>
-        {loading && "loading..."}
+        {loading && <Text textAlign="center">loading...</Text>}
         {address ? (
           <DisplayNFTs setLoading={setLoading} />
         ) : (
